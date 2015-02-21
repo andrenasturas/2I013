@@ -1,7 +1,7 @@
 from soccersimulator import SoccerBattle, SoccerPlayer, SoccerTeam
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import pyglet
-from strategies import StaticStrategy, RandomStrategy, RunnerStrategy, YoloStrategy
+from strategies import RunnerStrategy, InterceptorStrategy
 
 team1 = SoccerTeam("team1")
 team1.add_player(SoccerPlayer("t1j1", RunnerStrategy()))
