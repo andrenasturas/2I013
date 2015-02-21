@@ -4,10 +4,10 @@ from soccertools import Tools
 class GlobalStrategy(SoccerStrategy):
     def __init__(self, name, strategies):
         self.name = name
-        if not slist:
-            self.strategies = strategies
+        if not strategies:
+            self.strategies = []1
         else:
-            self.strategies = []
+            self.strategies = strategies
     def select(d):
         if(len(strategies) == 1):
             return 0
