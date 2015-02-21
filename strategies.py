@@ -1,4 +1,64 @@
 from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot
+from soccertools import Tools
+
+class GlobalStrategy(SoccerStrategy):
+    def __init__(self, name, strategies):
+        self.name = name
+        if not slist:
+            self.strategies = strategies
+        else:
+            self.strategies = []
+    def select(d):
+        if(len(strategies) == 1):
+            return 0
+        else:
+            if(d.isOnBall()):
+                 pass
+
+    def addStrategy(self,strat):
+        self.strategies.append(strat)
+    def start_battle(self,state):   # Selection strategie selon composition
+        for s in self.strategies:
+            s.start_battle(state)
+    def finish_battle(self,won):
+        for s in self.strategies:
+            s.finish_battle(won)
+    def compute_strategy(self,state,player,teamid):
+        d = Tools(player, players, state, teamid)
+        return strategies[select(d)](d)
+
+def staticStrategy(d):  # Debug
+    return SoccerAction(Vector2D(0,0), Vector2D(0,0))
+
+def randomStrategy(d):  # Debug
+    return SoccerAction(Vector2D.create_random(), Vector2D.create_random())
+
+def yoloStrategy(d):    # Debug
+    if d.isOnBall():
+        t = Vector2D.create_random()
+        a = t
+    else:
+        t = Vector2D(0,0)
+        a = state.ball.position - player.position
+    return SoccerAction(a, t)
+
+def runnerStrategy(d):
+    t = state.get_goal_center((not(teamid-1))+1) - player.position
+    t.product(100)
+    a = state.ball.position - player.position
+    a.product(100)
+    return SoccerAction(a, t)
+
+def keeperStrategy(d):
+    pass
+
+def interceptorStrategy(d):
+    pass
+
+def distantStrategy(d):
+    pass
+
+# TODO : remove legacy classes
 
 class StaticStrategy(SoccerStrategy):
     # Immobile et inactif
@@ -56,7 +116,7 @@ class RunnerStrategy(SoccerStrategy):
 #            a = state.ball.position - player.position
 
         t = state.get_goal_center((not(teamid-1))+1) - player.position
- #       t.product(maxPlayerShoot)
+#       t.product(maxPlayerShoot)
         a = state.ball.position - player.position
         return SoccerAction(a, t)
     def copy(self):
