@@ -84,3 +84,21 @@ class YoloStrategy(SoccerStrategy):
         return YoloStrategy()
     def create_strategy(self):
         return YoloStrategy()
+
+class InterceptorStrategy(SoccerStrategy):
+    def __init__(self):
+        self.name="Interceptor"
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        t = state.get_goal_center((not(teamid-1))+1) - player.position
+        t.product(100)
+        a = interceptionBall(player, ball)
+        a.product(100)
+        return SoccerAction(a, t)
+    def copy(self):
+        return InterceptorStrategy()
+    def create_strategy(self):
+        return InterceptorStrategy()
