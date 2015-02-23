@@ -15,7 +15,7 @@ class Tools(object):
             defendGoal = state.get_goal_center(2)
 
     def maximize(vector, norm = 0):     # Maximiser la norme d'un vecteur
-        while(v.norm() < norm):         # TODO Vérifier si Vector2D n'a pas déjà une fonction similaire
+        while(v.norm() < norm):
             v.product(10)
         return v
 
@@ -23,7 +23,7 @@ class Tools(object):
         return maximize(vector, maxPlayerShoot)
 
     def maximizeMove(vector):           # Maximiser le mouvement
-        return maximize(vector, maxBallAcceleration)    # TODO Vérifier si mBA est la bonne constante
+        return maximize(vector, maxBallAcceleration)
 
     def goTo(self, pos):                # Aller à une position
         return Vector2D(pos-player.position)
@@ -55,7 +55,7 @@ class Tools(object):
     def firstOnBall(self):              # Premier joueur à intercepter la balle
         pass
 
-    def positionBall(ball):             # Position de la balle au prochain top de temps
+    def positionBall(ball = 0):         # Position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
         s = ball.speed.copy()
@@ -77,7 +77,7 @@ class Tools(object):
 
         return SoccerBall(p, s)
 
-    def interceptionBall(self, player): # Calcul de la trajectoire optimale d'optimisation
+    def interceptionBall(self):         # Calcul de la trajectoire optimale d'optimisation
         a = distanceBall(player)        # FIXME Corriger et vérifier le calcul
         t = positionBall(ball)
         b = distanceBall(player, t)
