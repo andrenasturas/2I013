@@ -5,7 +5,7 @@ class GlobalStrategy(SoccerStrategy):
     def __init__(self, name, strategies):
         self.name = name
         if not strategies:
-            self.strategies = []1
+            self.strategies = []
         else:
             self.strategies = strategies
     def select(d):
