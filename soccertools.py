@@ -7,35 +7,55 @@ class Tools(object):
         self.state = state
         self.teamid = teamid
         self.ball = state.ball
+        if(teamid == 1):    # FIXME À normaliser (terrain miroir)
+            targetGoal = state.get_goal_center(2)
+            defendGoal = state.get_goal_center(1)
+        else:
+            targetGoal = state.get_goal_center(1)
+            defendGoal = state.get_goal_center(2)
 
-    def goTo(self, pos):
+    def maximize(vector, norm = 0):     # Maximiser la norme d'un vecteur
+        while(v.norm() < norm):         # TODO Vérifier si Vector2D n'a pas déjà une fonction similaire
+            v.product(10)
+        return v
+
+    def maximizeShot(vector):           # Maximiser le tir
+        return maximize(vector, maxPlayerShoot)
+
+    def maximizeMove(vector):           # Maximiser le mouvement
+        return maximize(vector, maxBallAcceleration)    # TODO Vérifier si mBA est la bonne constante
+
+    def goTo(self, pos):                # Aller à une position
         return Vector2D(pos-player.position)
 
-    def distanceFromBall(player, ball):
+    def goToGo(self):                   # Aller vers le but ennemi
+        return goTo(targetGoal)
+
+    def distanceFromBall(player, ball): # Distance du joueur à la balle
         if not player:
             player = self.player
         if not ball:
             ball = this.ball
         return player.position.distance(ball.position)
 
-    def isOnBall(self, player):
+    def isOnBall(self, player):         # Balle à portée de tir
         if not player:
             player = self.player
         if distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
             return 1
         return 0
 
-    def closerFromBall(self):
+    def closerFromBall(self):           # Classement des joueurs selon ordre croissant de leur distance à la balle
         n = 0
         for p in players:
             l[n] = distanceFromBall(p, ball)
             n+= 1
         return l.index(min(l))
 
-    def firstOnBall(self):
+    def firstOnBall(self):              # Premier joueur à intercepter la balle
         pass
 
-    def positionBall(ball):
+    def positionBall(ball):             # Position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
         s = ball.speed.copy()
@@ -57,8 +77,8 @@ class Tools(object):
 
         return SoccerBall(p, s)
 
-    def interceptionBall(self, player):
-        a = distanceBall(player)
+    def interceptionBall(self, player): # Calcul de la trajectoire optimale d'optimisation
+        a = distanceBall(player)        # FIXME Corriger et vérifier le calcul
         t = positionBall(ball)
         b = distanceBall(player, t)
         while b < a:
