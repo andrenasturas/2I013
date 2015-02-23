@@ -2,7 +2,7 @@ from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, S
 from soccertools import Tools
 
 class GlobalStrategy(SoccerStrategy):
-    def __init__(self, name, strategies):
+    def __init__(self, name, moves, shots):
         self.name = name
         if not strategies:
             self.strategies = []1
@@ -23,12 +23,37 @@ class GlobalStrategy(SoccerStrategy):
     def finish_battle(self,won):
         for s in self.strategies:
             s.finish_battle(won)
+    def move(d):
+        pass
+    def shot(d):
+        pass
+
     def compute_strategy(self,state,player,teamid):
         d = Tools(player, players, state, teamid)
-        return strategies[select(d)](d)
+        return SoccerAction(move(d), shot(d))
+
+# Déplacements basiques
+def staticMove(d):  # Debug
+    return Vector2D(0, 0)
+def randomMove(d):  # Debug
+    return Vector2D.create_random()
+def runMove(d):     # Course directe vers la balle
+    a = state.ball.position - player.position
+    d.maximizeMove(t)
+    return a
+
+# Actions basiques
+def staticShot(d):  # Debug
+    return Vector2D(0, 0)
+def randomShot(d):  # Debug
+    return Vector2D.create_random()
+def directShot(d):  # Tir direct vers le but ennemi
+    t = d.goToGo()
+    d.maximizeShot(t)
+    return
 
 def staticStrategy(d):  # Debug
-    return SoccerAction(Vector2D(0,0), Vector2D(0,0))
+    return SoccerAction(staticMove(d), staticShot(d))
 
 def randomStrategy(d):  # Debug
     return SoccerAction(Vector2D.create_random(), Vector2D.create_random())
@@ -58,7 +83,7 @@ def interceptorStrategy(d):
 def distantStrategy(d):
     pass
 
-# TODO : remove legacy classes
+# TODO Supprimer les anciennes stratégies
 
 class StaticStrategy(SoccerStrategy):
     # Immobile et inactif
