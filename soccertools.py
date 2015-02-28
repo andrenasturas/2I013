@@ -32,33 +32,20 @@ class Tools(object):
             n+= 1
         return l.index(min(l))
 
-    def firstOnBall(self):
-        pass
-
-    def positionBall(ball):
+    def positionBall(self, ball = 0):       # Calcul de la position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
         s = ball.speed.copy()
         p = ball.position.copy()
+        ns = s.product(1 - ballBrakeSquare*(s.norm**2) - ballBrakeConstant)
+        p+= ns
+        return SoccerBall(p, ns)
 
-        frotte_ball_square = s.copy()
-        coeff_frottement_square = ballBrakeSquare*(s.norm**2)
-        frotte_ball_square.product(-coeff_frottement_square)
-        frotte_ball_constant = s.copy()
-        coeff_frottement_constant = ballBrakeConstant
-        frotte_ball_constant.product(-coeff_frottement_constant)
-
-        new_ball_speed = s
-        new_ball_speed+= frotte_ball_square
-        new_ball_speed+= frotte_ball_constant
-
-        s = new_ball_speed
-        p+= s
-
-        return SoccerBall(p, s)
-
-    def interceptionBall(self, player):
+    def interceptionBall(self, player = 0): # Calcul de la trajectoire optimale d'interception
+        if not player:
+            player = self.player
         a = distanceBall(player)
+        b =
         t = positionBall(ball)
         b = distanceBall(player, t)
         while b < a:
@@ -66,6 +53,9 @@ class Tools(object):
             a = b
             b = distanceBall(player, t)
         return a
+
+    def firstOnBall(self):
+        pass
 
     def isZoneClean():
         pass
