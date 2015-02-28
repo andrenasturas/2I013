@@ -8,13 +8,13 @@ class Tools(object):
         self.ball = state.ball
 
     def goTo(self, pos):
-        return Vector2D(pos-player.position)
+        return pos - self.player.position
 
-    def distanceFromBall(player, ball):
+    def distanceFromBall(self, player = 0, ball = 0):
         if not player:
             player = self.player
         if not ball:
-            ball = this.ball
+            ball = self.ball
         return player.position.distance(ball.position)
 
     def isOnBall(self, player):
@@ -45,13 +45,13 @@ class Tools(object):
             player = self.player
         n = 0
         x = 0
-        y = distanceBall(player)
         b = self.ball
+        y = distanceFromBall(b)
         while x < y:
             n+= 1
             b = positionBall(b)
             x = maxPlayerSpeed * n
-            y = distanceBall(player, b)
+            y = distanceFromBall(b)
         r = b.position
         return r
 
