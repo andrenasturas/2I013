@@ -12,8 +12,10 @@ class GlobalStrategy(SoccerStrategy):
             self.shots = []
         else:
             self.shots = shots
-    def addStrategy(self,strat):
-        self.strategies.append(strat)
+    def addMove(self, move):
+        self.moves.append(move)
+    def addShot(self, shot):
+        self.shots.append(shot)
     def start_battle(self,state):   # Selection strategie selon composition
         pass
     def finish_battle(self,won):
