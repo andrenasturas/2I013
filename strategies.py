@@ -153,7 +153,7 @@ class InterceptorStrategy(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
-        d = Tools(player, players, state, teamid)
+        d = Tools(player, state, teamid)
         t = state.get_goal_center((not(teamid-1))+1) - player.position
         t.product(100)
         a = d.goTo(d.interceptionBall(player, ball))

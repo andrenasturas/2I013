@@ -1,9 +1,8 @@
 from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot, maxPlayerSpeed, maxBallAcceleration, ballBrakeSquare, ballBrakeConstant
 
 class Tools(object):
-    def __init__(self, player, players, state, teamid):
+    def __init__(self, player, state, teamid):
         self.player = player
-        self.players = players
         self.state = state
         self.teamid = teamid
         self.ball = state.ball
@@ -25,12 +24,12 @@ class Tools(object):
             return 1
         return 0
 
-    def closerFromBall(self):
-        n = 0
-        for p in players:
-            l[n] = distanceFromBall(p, ball)
-            n+= 1
-        return l.index(min(l))
+#    def closerFromBall(self):
+#        n = 0
+#        for p in players:
+#            l[n] = distanceFromBall(p, ball)
+#            n+= 1
+#        return l.index(min(l))
 
     def positionBall(self, ball = 0):       # Calcul de la position de la balle au prochain top de temps
         if not ball:
