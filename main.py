@@ -16,11 +16,11 @@ team4.add_player(SoccerPlayer("t4j2",RunnerStrategy()))
 team4.add_player(SoccerPlayer("t4j3",RunnerStrategy()))
 team4.add_player(SoccerPlayer("t4j4",RunnerStrategy()))
 
-team4 = SoccerTeam("team8")
-team4.add_player(SoccerPlayer("t8j1",InterceptorStrategy()))
-team4.add_player(SoccerPlayer("t8j2",InterceptorStrategy()))
-team4.add_player(SoccerPlayer("t8j3",InterceptorStrategy()))
-team4.add_player(SoccerPlayer("t8j4",InterceptorStrategy()))
+team8 = SoccerTeam("team8")
+team8.add_player(SoccerPlayer("t8j1",InterceptorStrategy()))
+team8.add_player(SoccerPlayer("t8j2",InterceptorStrategy()))
+team8.add_player(SoccerPlayer("t8j3",InterceptorStrategy()))
+team8.add_player(SoccerPlayer("t8j4",InterceptorStrategy()))
 
 teams = [team1, team2, team4, team8]
 
