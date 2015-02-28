@@ -31,13 +31,13 @@ def staticMove(d):  # Debug
     return Vector2D(0, 0)
 def randomMove(d):  # Debug
     return Vector2D.create_random()
-def runMove(d):     # Course directe vers la balle
+def runnerMove(d):     # Course directe vers la balle
     a = state.ball.position - player.position
     a = d.maximizeMove(a)
     return a
-def defMove(d):     # Placement défensif
+def defendMove(d):     # Placement défensif
     pass            # TODO Défense
-def intMove(d):     # Trajectoire optimale d'interception
+def intercMove(d):     # Trajectoire optimale d'interception
     a = d.interceptionBall()
     a = d.maximizeMove(a)
 
