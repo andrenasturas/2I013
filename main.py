@@ -16,9 +16,15 @@ team4.add_player(SoccerPlayer("t4j2",RunnerStrategy()))
 team4.add_player(SoccerPlayer("t4j3",RunnerStrategy()))
 team4.add_player(SoccerPlayer("t4j4",RunnerStrategy()))
 
-teams = [team1, team2, team4]
+team4 = SoccerTeam("team8")
+team4.add_player(SoccerPlayer("t8j1",InterceptorStrategy()))
+team4.add_player(SoccerPlayer("t8j2",InterceptorStrategy()))
+team4.add_player(SoccerPlayer("t8j3",InterceptorStrategy()))
+team4.add_player(SoccerPlayer("t8j4",InterceptorStrategy()))
 
-battle =SoccerBattle(teams[2],teams[2])
+teams = [team1, team2, team4, team8]
+
+battle =SoccerBattle(teams[2],teams[3])
 obs=PygletObserver()
 obs.set_soccer_battle(battle)
 pyglet.app.run()

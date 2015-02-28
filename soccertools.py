@@ -1,4 +1,4 @@
-from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot, maxBallAcceleration, ballBrakeSquare, ballBrakeConstant
+from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot, maxPlayerSpeed, maxBallAcceleration, ballBrakeSquare, ballBrakeConstant
 
 class Tools(object):
     def __init__(self, player, players, state, teamid):
@@ -41,18 +41,20 @@ class Tools(object):
         p+= ns
         return SoccerBall(p, ns)
 
-    def interceptionBall(self, player = 0): # Calcul de la trajectoire optimale d'interception
+    def interceptionBall(self, player = 0): # Calcul de la trajectoire rectiligne optimale d'interception
         if not player:
             player = self.player
-        a = distanceBall(player)
-        b =
-        t = positionBall(ball)
-        b = distanceBall(player, t)
-        while b < a:
-            t = positionBall(t)
-            a = b
-            b = distanceBall(player, t)
-        return a
+        n = 0
+        x = 0
+        y = distanceBall(player)
+        b = self.ball
+        while x < y:
+            n+= 1
+            b = positionBall(b)
+            x = maxPlayerSpeed * n
+            y = distanceBall(player, b)
+        r = b.position
+        return r
 
     def firstOnBall(self):
         pass

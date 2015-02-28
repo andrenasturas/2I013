@@ -153,9 +153,10 @@ class InterceptorStrategy(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
+        d = Tools(player, players, state, teamid)
         t = state.get_goal_center((not(teamid-1))+1) - player.position
         t.product(100)
-        a = interceptionBall(player, ball)
+        a = d.goTo(d.interceptionBall(player, ball))
         a.product(100)
         return SoccerAction(a, t)
     def copy(self):
