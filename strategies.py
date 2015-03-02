@@ -20,12 +20,14 @@ class GlobalStrategy(SoccerStrategy):
         pass
     def shot(d):    # Choisir l'action ideale
         pass
+    def begin_battles(self, state, count, max_step):
+        pass
     def start_battle(self, state):
         pass
     def finish_battle(self, won):
         pass
     def compute_strategy(self, state, player, teamid):
-        d = Tools(player, players, state, teamid)
+        d = Tools(player, state, teamid)
         return SoccerAction(move(d), shot(d))
 
 # Déplacements basiques
