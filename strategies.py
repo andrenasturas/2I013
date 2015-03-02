@@ -2,7 +2,7 @@ from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, S
 from soccertools import Tools
 
 class GlobalStrategy(SoccerStrategy):
-    def __init__(self, name, moves, shots):
+    def __init__(self, name, moves = None, shots = None):
         self.name = name
         if not moves:
             self.moves = []
@@ -16,11 +16,15 @@ class GlobalStrategy(SoccerStrategy):
         self.moves.append(move)
     def addShot(self, shot):
         self.shots.append(shot)
-    def move(d):    # Choisir le déplacement optimal
+    def move(d):    # Choisir le deplacement optimal
         pass
-    def shot(d):    # Choisir l'action idéale
+    def shot(d):    # Choisir l'action ideale
         pass
-    def compute_strategy(self,state,player,teamid):
+    def start_battle(self, state):
+        pass
+    def finish_battle(self, won):
+        pass
+    def compute_strategy(self, state, player, teamid):
         d = Tools(player, players, state, teamid)
         return SoccerAction(move(d), shot(d))
 
@@ -33,13 +37,13 @@ def runnerMove(d):  # Course directe vers la balle
     a = d.goToGo()
     a = d.maximizeMove(a)
     return a
-def defendMove(d):  # Placement défensif
+def defendMove(d):  # Placement defensif
     pass            # TODO Défense
 def intercMove(d):  # Trajectoire optimale d'interception
     a = d.goTo(d.interceptionBall())
     a = d.maximizeMove(a)
     return a
-def supplyMove(d):  # Placement démarqué
+def supplyMove(d):  # Placement demarque
     pass            # TODO Démarquer
 
 # Actions basiques
@@ -51,7 +55,7 @@ def directShot(d):  # Tir direct vers le but ennemi
     t = d.goToGo()
     d.maximizeShot(t)
     return t
-def passerShot(d):  # Passe à un allié
+def passerShot(d):  # Passe à un allie
     pass            # TODO Passe
 def contreShot(d):  # Contre-tir
     pass            # TODO Contre
