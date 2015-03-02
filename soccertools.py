@@ -20,7 +20,7 @@ class Tools(object):
     def isOnBall(self, player):
         if not player:
             player = self.player
-        if distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
+        if self.distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
             return 1
         return 0
 
@@ -46,7 +46,7 @@ class Tools(object):
         n = 0
         x = 0
         b = self.ball
-        y = distanceFromBall(b)
+        y = self.distanceFromBall(b)
         while x < y:
             n+= 1
             b = positionBall(b)
