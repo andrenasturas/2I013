@@ -1,18 +1,22 @@
 from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot, maxBallAcceleration, ballBrakeSquare, ballBrakeConstant, nbWithoutShoot
 
 class Tools(object):
-    def __init__(self, player, players, state, teamid):
+    def __init__(self, player, state, teamid):
         self.player = player
-        self.players = players
         self.state = state
-        self.teamid = teamid
         self.ball = state.ball
-        if(teamid == 1):    # FIXME À normaliser (terrain miroir)
-            self.targetGoal = state.get_goal_center(2)
-            self.defendGoal = state.get_goal_center(1)
+        if(teamid == 1):
+            self.goal[1] = state.get_goal_center(2)
+            self.goal[0] = state.get_goal_center(1)
+            self.team[0] = team1
+            self.team[1] = team2
+            self.side = 0
         else:
-            self.targetGoal = state.get_goal_center(1)
-            self.defendGoal = state.get_goal_center(2)
+            self.goal[1] = state.get_goal_center(1)
+            self.goal[0] = state.get_goal_center(2)
+            self.team[1] = team1
+            self.team[0] = team2
+            self.side = 1
 
     def maximize(vector, norm = 0):     # Maximiser la norme d'un vecteur
         while(v.norm() < norm):
@@ -29,7 +33,7 @@ class Tools(object):
         return Vector2D(pos-player.position)
 
     def goToGo(self):                   # Aller vers le but ennemi
-        return goTo(targetGoal)
+        return goTo(goal[1])
 
     def distanceFromBall(player, ball): # Distance du joueur à la balle
         if not player:
@@ -79,6 +83,6 @@ class Tools(object):
     def hasShot(player = None):
         if not player:
             player = self.player
-        if player._num_before_shoot > (nbWithoutShoot / 2):
+        if player._num_before_shoot > (2 * nbWithoutShoot / 3):
             return true
         return false
