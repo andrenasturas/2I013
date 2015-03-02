@@ -1,4 +1,4 @@
-from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot, maxBallAcceleration, ballBrakeSquare, ballBrakeConstant
+from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, SoccerPlayer, SoccerAction, PLAYER_RADIUS, BALL_RADIUS, maxPlayerShoot, maxBallAcceleration, ballBrakeSquare, ballBrakeConstant, nbWithoutShoot
 
 class Tools(object):
     def __init__(self, player, players, state, teamid):
@@ -86,6 +86,13 @@ class Tools(object):
             a = b
             b = distanceBall(player, t)
         return a
+
+    def hasShot(player = None):
+        if not player:
+            player = self.player
+        if player._num_before_shoot > (nbWithoutShoot / 2):
+            return true
+        return false
 
     def isZoneClean():
         pass
