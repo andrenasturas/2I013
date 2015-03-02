@@ -16,10 +16,6 @@ class GlobalStrategy(SoccerStrategy):
         self.moves.append(move)
     def addShot(self, shot):
         self.shots.append(shot)
-    def start_battle(self,state):   # Selection strategie selon composition
-        pass
-    def finish_battle(self,won):
-        pass
     def move(d):    # Choisir le déplacement optimal
         pass
     def shot(d):    # Choisir l'action idéale
@@ -34,7 +30,7 @@ def staticMove(d):  # Debug
 def randomMove(d):  # Debug
     return Vector2D.create_random()
 def runnerMove(d):  # Course directe vers la balle
-    a = state.ball.position - player.position
+    a = d.goToGo()
     a = d.maximizeMove(a)
     return a
 def defendMove(d):  # Placement défensif
@@ -54,6 +50,8 @@ def randomShot(d):  # Debug
 def directShot(d):  # Tir direct vers le but ennemi
     t = d.goToGo()
     d.maximizeShot(t)
-    return
+    return t
 def passerShot(d):  # Passe à un allié
     pass            # TODO Passe
+def contreShot(d):  # Contre-tir
+    pass            # TODO Contre
