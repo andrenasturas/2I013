@@ -24,12 +24,12 @@ class Tools(object):
             return 1
         return 0
 
-#    def closerFromBall(self):
-#        n = 0
-#        for p in players:
-#            l[n] = distanceFromBall(p, ball)
-#            n+= 1
-#        return l.index(min(l))
+    def closerFromBall(self):
+        n = 0
+        for p in players:
+            l[n] = self.distanceFromBall(p, ball)
+            n+= 1
+        return l.index(min(l))
 
     def positionBall(self, ball = None):       # Calcul de la position de la balle au prochain top de temps
         if not ball:
