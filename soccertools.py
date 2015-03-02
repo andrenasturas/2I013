@@ -8,11 +8,11 @@ class Tools(object):
         self.teamid = teamid
         self.ball = state.ball
         if(teamid == 1):    # FIXME À normaliser (terrain miroir)
-            targetGoal = state.get_goal_center(2)
-            defendGoal = state.get_goal_center(1)
+            self.targetGoal = state.get_goal_center(2)
+            self.defendGoal = state.get_goal_center(1)
         else:
-            targetGoal = state.get_goal_center(1)
-            defendGoal = state.get_goal_center(2)
+            self.targetGoal = state.get_goal_center(1)
+            self.defendGoal = state.get_goal_center(2)
 
     def maximize(vector, norm = 0):     # Maximiser la norme d'un vecteur
         while(v.norm() < norm):
