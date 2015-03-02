@@ -40,8 +40,9 @@ def runnerMove(d):  # Course directe vers la balle
 def defendMove(d):  # Placement défensif
     pass            # TODO Défense
 def intercMove(d):  # Trajectoire optimale d'interception
-    a = d.interceptionBall()
+    a = d.goTo(d.interceptionBall())
     a = d.maximizeMove(a)
+    return a
 def supplyMove(d):  # Placement démarqué
     pass            # TODO Démarquer
 
