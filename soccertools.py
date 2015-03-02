@@ -38,7 +38,7 @@ class Tools(object):
             ball = this.ball
         return player.position.distance(ball.position)
 
-    def isOnBall(self, player):         # Balle à portée de tir
+    def isOnBall(self, player = None):  # Balle à portée de tir
         if not player:
             player = self.player
         if distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
@@ -48,9 +48,9 @@ class Tools(object):
     def closerFromBall(self):           # Classement des joueurs selon ordre croissant de leur distance à la balle
         n = 0
         for p in players:
-            l[n] = distanceFromBall(p, ball)
+            l[n] = (self.distanceFromBall(p, ball), p)
             n+= 1
-        return l.index(min(l))
+        return l.sort()
 
     def firstOnBall(self):              # Premier joueur à intercepter la balle
         pass
