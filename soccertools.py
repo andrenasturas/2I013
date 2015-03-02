@@ -27,9 +27,9 @@ class Tools(object):
     def closerFromBall(self):
         n = 0
         for p in players:
-            l[n] = self.distanceFromBall(p, ball)
+            l[n] = (self.distanceFromBall(p, ball), p)
             n+= 1
-        return l.index(min(l))
+        return l.sort()
 
     def positionBall(self, ball = None):       # Calcul de la position de la balle au prochain top de temps
         if not ball:
