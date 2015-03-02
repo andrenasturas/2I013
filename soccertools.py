@@ -55,37 +55,29 @@ class Tools(object):
     def firstOnBall(self):              # Premier joueur à intercepter la balle
         pass
 
-    def positionBall(ball = 0):         # Position de la balle au prochain top de temps
+    def positionBall(self, ball = None):# Calcul de la position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
         s = ball.speed.copy()
         p = ball.position.copy()
+        ns = s.product(1 - ballBrakeSquare*(s.norm**2) - ballBrakeConstant)
+        p+= ns
+        return SoccerBall(p, ns)
 
-        frotte_ball_square = s.copy()
-        coeff_frottement_square = ballBrakeSquare*(s.norm**2)
-        frotte_ball_square.product(-coeff_frottement_square)
-        frotte_ball_constant = s.copy()
-        coeff_frottement_constant = ballBrakeConstant
-        frotte_ball_constant.product(-coeff_frottement_constant)
-
-        new_ball_speed = s
-        new_ball_speed+= frotte_ball_square
-        new_ball_speed+= frotte_ball_constant
-
-        s = new_ball_speed
-        p+= s
-
-        return SoccerBall(p, s)
-
-    def interceptionBall(self):         # Calcul de la trajectoire optimale d'optimisation
-        a = distanceBall(player)        # FIXME Corriger et vérifier le calcul
-        t = positionBall(ball)
-        b = distanceBall(player, t)
-        while b < a:
-            t = positionBall(t)
-            a = b
-            b = distanceBall(player, t)
-        return a
+    def interBall(self, player = None): # Calcul de la trajectoire rectiligne optimale d'interception
+        if not player:
+            player = self.player
+        n = 0
+        x = 0
+        b = self.ball
+        y = self.distanceFromBall(b)
+        while x < y:
+            n+= 1
+            b = self.positionBall(b)
+            x = maxPlayerSpeed * n
+            y = self.distanceFromBall(b)
+        r = b.position
+        return r
 
     def hasShot(player = None):
         if not player:
