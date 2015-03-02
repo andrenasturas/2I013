@@ -52,9 +52,6 @@ class Tools(object):
             n+= 1
         return l.sort()
 
-    def firstOnBall(self):              # Premier joueur à intercepter la balle
-        pass
-
     def positionBall(self, ball = None):# Calcul de la position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
@@ -85,6 +82,3 @@ class Tools(object):
         if player._num_before_shoot > (nbWithoutShoot / 2):
             return true
         return false
-
-    def isZoneClean():
-        pass
