@@ -10,7 +10,7 @@ class Tools(object):
     def goTo(self, pos):
         return pos - self.player.position
 
-    def distanceFromBall(self, player = 0, ball = 0):
+    def distanceFromBall(self, player = None, ball = None):
         if not player:
             player = self.player
         if not ball:
@@ -31,7 +31,7 @@ class Tools(object):
 #            n+= 1
 #        return l.index(min(l))
 
-    def positionBall(self, ball = 0):       # Calcul de la position de la balle au prochain top de temps
+    def positionBall(self, ball = None):       # Calcul de la position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
         s = ball.speed.copy()
@@ -40,7 +40,7 @@ class Tools(object):
         p+= ns
         return SoccerBall(p, ns)
 
-    def interceptionBall(self, player = 0): # Calcul de la trajectoire rectiligne optimale d'interception
+    def interceptionBall(self, player = None): # Calcul de la trajectoire rectiligne optimale d'interception
         if not player:
             player = self.player
         n = 0
@@ -49,9 +49,9 @@ class Tools(object):
         y = self.distanceFromBall(b)
         while x < y:
             n+= 1
-            b = positionBall(b)
+            b = self.positionBall(b)
             x = maxPlayerSpeed * n
-            y = distanceFromBall(b)
+            y = self.distanceFromBall(b)
         r = b.position
         return r
 
