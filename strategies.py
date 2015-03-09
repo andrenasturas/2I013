@@ -30,7 +30,7 @@ class GlobalStrategy(SoccerStrategy):
         d = Tools(player, state, teamid)
         return SoccerAction(move(d), shot(d))
 
-# Déplacements basiques
+# Deplacements basiques
 def staticMove(d):  # Debug
     return Vector2D(0, 0)
 def randomMove(d):  # Debug
@@ -40,13 +40,13 @@ def runnerMove(d):  # Course directe vers la balle
     a = d.maximizeMove(a)
     return a
 def defendMove(d):  # Placement defensif
-    pass            # TODO Défense
+    pass            # TODO Defense
 def intercMove(d):  # Trajectoire optimale d'interception
     a = d.goTo(d.interBall())
     a = d.maximizeMove(a)
     return a
 def supplyMove(d):  # Placement demarque
-    pass            # TODO Démarquer
+    pass            # TODO Demarquer
 
 # Actions basiques
 def staticShot(d):  # Debug
@@ -57,7 +57,7 @@ def directShot(d):  # Tir direct vers le but ennemi
     t = d.goToGo()
     d.maximizeShot(t)
     return t
-def passerShot(d):  # Passe à un allie
+def passerShot(d):  # Passe a un allie
     pass            # TODO Passe
 def contreShot(d):  # Contre-tir
     pass            # TODO Contre

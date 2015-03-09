@@ -29,27 +29,27 @@ class Tools(object):
     def maximizeMove(vector):           # Maximiser le mouvement
         return maximize(vector, maxBallAcceleration)
 
-    def goTo(self, pos):                # Aller à une position
+    def goTo(self, pos):                # Aller a une position
         return Vector2D(pos-player.position)
 
     def goToGo(self):                   # Aller vers le but ennemi
         return goTo(goal[1])
 
-    def distanceFromBall(player, ball): # Distance du joueur à la balle
+    def distanceFromBall(player, ball): # Distance du joueur a la balle
         if not player:
             player = self.player
         if not ball:
             ball = this.ball
         return player.position.distance(ball.position)
 
-    def isOnBall(self, player = None):  # Balle à portée de tir
+    def isOnBall(self, player = None):  # Balle a portee de tir
         if not player:
             player = self.player
         if distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
             return 1
         return 0
 
-    def closerFromBall(self):           # Classement des joueurs selon ordre croissant de leur distance à la balle
+    def closerFromBall(self):           # Classement des joueurs selon ordre croissant de leur distance a la balle
         n = 0
         for p in players:
             l[n] = (self.distanceFromBall(p, ball), p)
