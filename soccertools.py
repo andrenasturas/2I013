@@ -5,37 +5,39 @@ class Tools(object):
         self.player = player
         self.state = state
         self.ball = state.ball
+        self.goal = []
+        self.team = []
         if(teamid == 1):
-            self.goal[1] = state.get_goal_center(2)
-            self.goal[0] = state.get_goal_center(1)
-            self.team[0] = team1
-            self.team[1] = team2
+            self.goal.append(state.get_goal_center(1))
+            self.goal.append(state.get_goal_center(2))
+            self.team.append(state.team1)
+            self.team.append(state.team2)
             self.side = 0
         else:
-            self.goal[1] = state.get_goal_center(1)
-            self.goal[0] = state.get_goal_center(2)
-            self.team[1] = team1
-            self.team[0] = team2
+            self.goal.append(state.get_goal_center(2))
+            self.goal.append(state.get_goal_center(1))
+            self.team.append(state.team2)
+            self.team.append(state.team1)
             self.side = 1
 
-    def maximize(vector, norm = 0):     # Maximiser la norme d'un vecteur
-        while(v.norm() < norm):
-            v.product(10)
-        return v
+    def maximize(self, vector, norm = 0):     # Maximiser la norme d'un vecteur
+        while(vector.norm() < norm):
+            vector.product(10)
+        return vector
 
-    def maximizeShot(vector):           # Maximiser le tir
-        return maximize(vector, maxPlayerShoot)
+    def maximizeShot(self, vector):           # Maximiser le tir
+        return self.maximize(vector, maxPlayerShoot)
 
-    def maximizeMove(vector):           # Maximiser le mouvement
-        return maximize(vector, maxBallAcceleration)
+    def maximizeMove(self, vector):           # Maximiser le mouvement
+        return self.maximize(vector, maxBallAcceleration)
 
     def goTo(self, pos):                # Aller a une position
-        return Vector2D(pos-player.position)
+        return pos-self.player.position
 
     def goToGo(self):                   # Aller vers le but ennemi
-        return goTo(goal[1])
+        return self.goTo(self.goal[1])
 
-    def distanceFromBall(player, ball): # Distance du joueur a la balle
+    def distanceFromBall(self, player = None, ball = None): # Distance du joueur a la balle
         if not player:
             player = self.player
         if not ball:
@@ -51,7 +53,7 @@ class Tools(object):
 
     def closerFromBall(self):           # Classement des joueurs selon ordre croissant de leur distance a la balle
         n = 0
-        for p in players:
+        for p in self.players:
             l[n] = (self.distanceFromBall(p, ball), p)
             n+= 1
         return l.sort()

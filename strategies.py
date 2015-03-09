@@ -2,8 +2,11 @@ from soccersimulator import Vector2D, SoccerStrategy, SoccerState, SoccerBall, S
 from soccertools import Tools
 
 class GlobalStrategy(SoccerStrategy):
-    def __init__(self, name, moves = None, shots = None):
-        self.name = name
+    def __init__(self, name = None, moves = None, shots = None):
+        if not name:
+            self.name = "GlobalStrategy"
+        else:
+            self.name = name
         if not moves:
             self.moves = []
         else:
@@ -16,10 +19,10 @@ class GlobalStrategy(SoccerStrategy):
         self.moves.append(move)
     def addShot(self, shot):
         self.shots.append(shot)
-    def move(d):    # Choisir le deplacement optimal
-        pass
-    def shot(d):    # Choisir l'action ideale
-        pass
+    def move(self, d):    # Choisir le deplacement optimal
+        return runnerMove(d)
+    def shot(self, d):    # Choisir l'action ideale
+        return directShot(d)
     def begin_battles(self, state, count, max_step):
         pass
     def start_battle(self, state):
@@ -28,7 +31,7 @@ class GlobalStrategy(SoccerStrategy):
         pass
     def compute_strategy(self, state, player, teamid):
         d = Tools(player, state, teamid)
-        return SoccerAction(move(d), shot(d))
+        return SoccerAction(self.move(d), self.shot(d))
 
 # Deplacements basiques
 def staticMove(d):  # Debug
