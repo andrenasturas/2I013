@@ -12,7 +12,7 @@ def runnerMove(d):  # Course directe vers la balle
     return a
 def defendMove(d):  # Placement defensif
     pass            # TODO Defense
-def attackMove(d):
+def attackMove(d):  # Offensive directe vers les cages ennemies
     a = d.goToGo()
     a = d.maximizeMove(a)
     return a
