@@ -6,31 +6,11 @@ import os
 from soccersimulator import SoccerStrategy
 from strats import *
 
-# Quelques generateurs de features
-
-def distance_ball(state,teamid,playerid):
-    return (state.get_team(teamid)[playerid].position-state.ball.position).norm
-
-def distance_mon_but(state,teamid,playerid):
-    return (state.get_goal_center(teamid)-state.get_team(teamid)[playerid].position).norm
-
-def distance_autre_but(state,teamid,playerid):
-    return (state.get_goal_center(3-teamid)-state.get_team(teamid)[playerid].position).norm
-
-def distance_ball_mon_but(state,teamid,playerid):
-    return (state.get_goal_center(teamid)-state.ball.position).norm
-
-
-def distance_ball_autre_but(state,teamid,playerid):
-    return (state.get_goal_center(3-teamid)-state.ball.position).norm
-
-
-list_fun_features=[distance_ball,distance_mon_but,distance_autre_but,distance_ball_mon_but,distance_ball_autre_but]
-
 # Une fonction de generation de feature.
 # np.array permet de transformer en vecteur une liste
-def gen_feature_simple(state,teamid,playerid):
-    return np.array([f(state,teamid,playerid) for f in list_fun_features])
+def gen_feature_simple(state, teamid, playerid):
+    d = Tools(state.get_player(teamid, playerid), state, teamid)
+    return np.array([f(state, teamid, playerid) for f in [d.goToBa(), d.goToGo(), d.goToHo()'''+++LISTE+++''']])
 
 # Lire les etats contenus dans un fichier
 def load_interact(fn):

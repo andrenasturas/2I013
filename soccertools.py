@@ -39,6 +39,9 @@ class Tools(object):
     def goToGo(self):                       # Aller vers le but ennemi
         return self.goTo(self.goal[1])
 
+    def goToHo(self):                       # Aller vers le but allié
+        return self.goTo(self.goal[0])
+
     def goToBa(self):                       # Aller vers la balle
         return self.goTo(self.ball.position)
 
