@@ -12,6 +12,10 @@ def runnerMove(d):  # Course directe vers la balle
     return a
 def defendMove(d):  # Placement defensif
     pass            # TODO Defense
+def attackMove(d):
+    a = d.goToGo()
+    a = d.maximizeMove(a)
+    return a
 def intercMove(d):  # Trajectoire optimale d'interception
     a = d.goTo(d.interBall())
     a = d.maximizeMove(a)
@@ -34,8 +38,8 @@ def contreShot(d):  # Contre-tir
     pass            # TODO Contre
 
 class GlobalStrategy(SoccerStrategy):
-    moves = []
-    shots = []
+    moves = [attackMove]
+    shots = [staticShot]
     def __init__(self, name = None, moves = None, shots = None):
         if not name:
             self.name = "GlobalStrategy"
@@ -48,9 +52,15 @@ class GlobalStrategy(SoccerStrategy):
     def addShot(self, shot):
         self.shots.append(shot)
     def move(self, d):    # Choisir le deplacement optimal
-        return runnerMove(d)
+        if d.isOnBall():
+            return self.moves[0](d)
+        else:
+            return self.moves[1](d)
     def shot(self, d):    # Choisir l'action ideale
-        return directShot(d)
+        if d.isOnBall():
+            return self.shots[1](d)
+        else:
+            return self.shots[0](d)
     def begin_battles(self, state, count, max_step):
         pass
     def start_battle(self, state):
@@ -63,5 +73,3 @@ class GlobalStrategy(SoccerStrategy):
 
 runner = GlobalStrategy("Runner", [runnerMove], [directShot])
 interc = GlobalStrategy("Incerceptor", [intercMove], [directShot])
-
-strats = [runner, interc]
