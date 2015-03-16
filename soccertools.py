@@ -20,21 +20,21 @@ class Tools(object):
             self.team.append(state.team1)
             self.side = 1
 
-    def maximize(self, vector, norm = 0):     # Maximiser la norme d'un vecteur
+    def maximize(self, vector, norm = 0):   # Maximiser la norme d'un vecteur
         while(vector.norm() < norm):
             vector.product(10)
         return vector
 
-    def maximizeShot(self, vector):           # Maximiser le tir
+    def maximizeShot(self, vector):         # Maximiser le tir
         return self.maximize(vector, maxPlayerShoot)
 
-    def maximizeMove(self, vector):           # Maximiser le mouvement
+    def maximizeMove(self, vector):         # Maximiser le mouvement
         return self.maximize(vector, maxBallAcceleration)
 
-    def goTo(self, pos):                # Aller a une position
+    def goTo(self, pos):                    # Aller a une position
         return pos-self.player.position
 
-    def goToGo(self):                   # Aller vers le but ennemi
+    def goToGo(self):                       # Aller vers le but ennemi
         return self.goTo(self.goal[1])
 
     def distanceFromBall(self, player = None, ball = None): # Distance du joueur a la balle
@@ -44,21 +44,21 @@ class Tools(object):
             ball = this.ball
         return player.position.distance(ball.position)
 
-    def isOnBall(self, player = None):  # Balle a portee de tir
+    def isOnBall(self, player = None):      # Balle a portee de tir
         if not player:
             player = self.player
         if distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
             return 1
         return 0
 
-    def closerFromBall(self):           # Classement des joueurs selon ordre croissant de leur distance a la balle
+    def closerFromBall(self):               # Classement des joueurs selon ordre croissant de leur distance a la balle
         n = 0
         for p in self.players:
             l[n] = (self.distanceFromBall(p, ball), p)
             n+= 1
         return l.sort()
 
-    def positionBall(self, ball = None):# Calcul de la position de la balle au prochain top de temps
+    def positionBall(self, ball = None):    # Calcul de la position de la balle au prochain top de temps
         if not ball:
             ball = self.ball
         s = ball.speed.copy()
@@ -67,7 +67,7 @@ class Tools(object):
         p+= ns
         return SoccerBall(p, ns)
 
-    def interBall(self, player = None): # Calcul de la trajectoire rectiligne optimale d'interception
+    def interBall(self, player = None):     # Calcul de la trajectoire rectiligne optimale d'interception
         if not player:
             player = self.player
         n = 0
