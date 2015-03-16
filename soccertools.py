@@ -47,13 +47,13 @@ class Tools(object):
         if not player:
             player = self.player
         if not ball:
-            ball = this.ball
+            ball = self.ball
         return player.position.distance(ball.position)
 
     def isOnBall(self, player = None):      # Balle a portee de tir
         if not player:
             player = self.player
-        if distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
+        if self.distanceFromBall(player) < (PLAYER_RADIUS + BALL_RADIUS):
             return 1
         return 0
 
