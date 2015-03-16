@@ -7,7 +7,7 @@ def staticMove(d):  # Debug
 def randomMove(d):  # Debug
     return Vector2D.create_random()
 def runnerMove(d):  # Course directe vers la balle
-    a = d.goToGo()
+    a = d.goToBa()
     a = d.maximizeMove(a)
     return a
 def defendMove(d):  # Placement defensif
@@ -34,8 +34,8 @@ def contreShot(d):  # Contre-tir
     pass            # TODO Contre
 
 class GlobalStrategy(SoccerStrategy):
-    self.moves = []
-    self.shots = []
+    moves = []
+    shots = []
     def __init__(self, name = None, moves = None, shots = None):
         if not name:
             self.name = "GlobalStrategy"

@@ -21,9 +21,11 @@ class Tools(object):
             self.side = 1
 
     def maximize(self, vector, norm = 0):   # Maximiser la norme d'un vecteur
-        while(vector.norm() < norm):
-            vector.product(10)
-        return vector
+        v = vector
+        if (v.norm != 0):
+            while(v.norm < norm):
+                v.product(10)
+        return v
 
     def maximizeShot(self, vector):         # Maximiser le tir
         return self.maximize(vector, maxPlayerShoot)
@@ -37,7 +39,11 @@ class Tools(object):
     def goToGo(self):                       # Aller vers le but ennemi
         return self.goTo(self.goal[1])
 
-    def distanceFromBall(self, player = None, ball = None): # Distance du joueur a la balle
+    def goToBa(self):                       # Aller vers la balle
+        return self.goTo(self.ball.position)
+
+    def distanceFromBall(self, player = None, ball = None):
+                                            # Distance du joueur a la balle
         if not player:
             player = self.player
         if not ball:
