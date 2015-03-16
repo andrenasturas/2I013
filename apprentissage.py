@@ -4,7 +4,7 @@ import pickle
 import os
 
 from soccersimulator import SoccerStrategy
-from strats import *
+from strategies import *
 
 # Une fonction de generation de feature.
 # np.array permet de transformer en vecteur une liste
