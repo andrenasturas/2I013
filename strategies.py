@@ -11,7 +11,8 @@ def runnerMove(d):  # Course directe vers la balle
     a = d.maximizeMove(a)
     return a
 def defendMove(d):  # Placement defensif
-    pass            # TODO Defense
+    a = d.goToHo()
+    a = d.maximizeMove(a)
 def attackMove(d):  # Offensive directe vers les cages ennemies
     a = d.goToGo()
     a = d.maximizeMove(a)
@@ -32,10 +33,6 @@ def directShot(d):  # Tir direct vers le but ennemi
     t = d.goToGo()
     d.maximizeShot(t)
     return t
-def passerShot(d):  # Passe a un allie
-    pass            # TODO Passe
-def contreShot(d):  # Contre-tir
-    pass            # TODO Contre
 
 class GlobalStrategy(SoccerStrategy):
     moves = [attackMove]
