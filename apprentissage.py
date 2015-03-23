@@ -10,7 +10,7 @@ from strategies import *
 # np.array permet de transformer en vecteur une liste
 def gen_feature_simple(state, teamid, playerid):
     d = Tools(state.get_player(teamid, playerid), state, teamid)
-    return np.array([f(state, teamid, playerid) for f in [d.goToBa(), d.goToGo(), d.goToHo()'''+++LISTE+++''']])
+    return np.array([d.goToBa(), d.goToGo(), d.goToHo()])
 
 # Lire les etats contenus dans un fichier
 def load_interact(fn):
