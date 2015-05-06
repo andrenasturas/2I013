@@ -53,7 +53,7 @@ class Tools(object):
             ball = self.ball
         return player.position.distance(ball.position)
         
-    def isReachable(self, pos = None, player = None):
+'''    def isReachable(self, pos = None, player = None):
     										# Balle a portee
         if not pos:
             pos = self.ball.position
@@ -62,7 +62,7 @@ class Tools(object):
     	if distanceFromBall(player, pos) < 2*GAME_GOAL_HEIGHT :
     		return true
     	return false
-
+'''
     def isOnBall(self, player = None):      # Balle a portee de tir
         if not player:
             player = self.player
@@ -107,3 +107,34 @@ class Tools(object):
         if player._num_before_shoot > (2 * nbWithoutShoot / 3):
             return true
         return false
+        
+    # TME Solo - Question 2
+    
+    def isInZone(self, zone, pos = None):		# Pos est dans la zone
+    	if not pos:
+    		pos = self.player.position
+    	return zone.contains(pos)
+
+    def escapeZone(self, zone, pos = None):		# Chemin le plus direct pour sortir d'une zone
+    	if not pos:
+    		pos = self.player.position
+    	a = pos.x - zone.bottom_left.x
+    	r = Vector2D(zone.bottom_left.x, pos.y)
+    	if ( zone.diagonal.x - pos.x ) < a:
+        	r = Vector2D(zone.diagonal.x, pos.y)
+        	a = pos.x - zone.diagonal.x
+		if ( zone.diagonal.y - pos.y ) < a:
+        	r = Vector2D(pos.x, zone.diagonal.y)
+        	a = zone.diagonal.y - pos.y
+    	if ( pos.y - zone.bottom_left.y ) < a:
+        	r = Vector2D(pos.x, zone.bottom_left.y)
+        return r
+    
+    @property
+    def zones(self):
+    	return self.state.danger_zones
+    	
+    	
+    	
+    	
+    	

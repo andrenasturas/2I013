@@ -24,8 +24,16 @@ def intercMove(d):  # Trajectoire optimale d'interception
     return a
 def supplyMove(d):  # Placement demarque
     pass            # TODO Demarquer
-def trackeMove(d, u):	# Suivre a la trace ()TME Solo - Question 1)
+def trackeMove(d, u):	# Suivre a la trace (TME Solo - Question 1)
 	goTo(u.position)
+def escapeMove(d, z):
+	d.goTo(d.escapeZone(z))
+def optimaMove(d):
+	# Necessite un pathfinding complet avec
+	# poids du chemin fonction du ralentissement de la boue
+	# (la glace etant aleatoire, elle devrait etre consideree comme obstacle infranchissable
+	# sauf si la balle s'y trouve)
+	pass
 	
 	
 	
@@ -78,11 +86,11 @@ class GlobalStrategy(SoccerStrategy):
         d = Tools(player, state, teamid)
         return SoccerAction(self.move(d), self.shot(d))
         
-# TME Solo - Question 1
+# TME Solo - Question 2
 class TMESoloStrategy(SoccerStrategy):
-    moves = [defendMove, trackeMove]
-    shots = [staticShot, directShot]
-    def __init__(self, track = None, name = None, moves = None, shots = None):
+    moves = [runnerMove]
+    shots = [staticShot]
+    def __init__(self, name = None, moves = None, shots = None):
         if not name:
             self.name = "TMESoloStrategy"
         else:
@@ -94,10 +102,14 @@ class TMESoloStrategy(SoccerStrategy):
     def addShot(self, shot):
         self.shots.append(shot)
     def move(self, d):    # Choisir le deplacement optimal
-        if track != None and d.isOnBall(track):			# Si la cible possede la balle
-			self.moves[1](d, track)		# Poursuivre la cible
-        else:							# Sinon
-			self.moves[0](d)			# Defendre aux cages
+        for z in d.zones:
+	        if d.isInZone(z):			# Si le joueur est dans une zone et pas la balle
+	        	if d.isInZone(z, d.state.ball.position):
+	        		self.moves[0](d)
+	        	else:
+					self.moves[1](d, z)		# Sortir de la zone
+	        else:						# Sinon
+				self.moves[0](d)		# Defendre aux cages
     def shot(self, d):    # Choisir l'action ideale
         if d.isOnBall():
             return self.shots[1](d)
@@ -113,5 +125,6 @@ class TMESoloStrategy(SoccerStrategy):
         d = Tools(player, state, teamid)
         return SoccerAction(self.move(d), self.shot(d))
 
-runner = GlobalStrategy("Runner", [runnerMove], [directShot])
+#runner = GlobalStrategy("Runner", [runnerMove], [directShot])
+runner = TMESoloStrategy("TMESolo", [escapeStrategy], [directShot])
 interc = GlobalStrategy("Incerceptor", [intercMove], [directShot])
