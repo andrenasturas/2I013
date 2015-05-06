@@ -16,4 +16,8 @@ team4.add_player(SoccerPlayer("t4j2", runner))
 team4.add_player(SoccerPlayer("t4j3", runner))
 team4.add_player(SoccerPlayer("t4j4", runner))
 
-teams = [team1, team2, team4]
+teamTMESolo = SoccrerTeam("Team TME Solo")
+teamTMESolo.add_player(SoccerPlayer("Player", TMESoloStrategy(team2.players[0])))
+teamTMESolo.add_player(SoccerAction("Player2", runner))
+
+teams = [team2, teamTMESolo]

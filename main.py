@@ -12,7 +12,7 @@ team2.add_player(SoccerPlayer("t2j2", runner))
 
 team4=SoccerTeam("Aventuriers Errants Intercepteurs")
 team4.add_player(SoccerPlayer("t4j1", interc))
-team4.add_player(SoccerPlayer("t4j2", interc))
+team4.add_player(SoccerPlayer("t4j2", TMESoloStrategy()))
 
 teams = [team1, team2, team4]
 

@@ -52,6 +52,16 @@ class Tools(object):
         if not ball:
             ball = self.ball
         return player.position.distance(ball.position)
+        
+    def isReachable(self, pos = None, player = None):
+    										# Balle a portee
+        if not pos:
+            pos = self.ball.position
+		if not player:
+			player = self.player
+    	if distanceFromBall(player, pos) < 2*GAME_GOAL_HEIGHT :
+    		return true
+    	return false
 
     def isOnBall(self, player = None):      # Balle a portee de tir
         if not player:
