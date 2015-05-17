@@ -45,6 +45,11 @@ class Tools(object):
     def goToBa(self):                       # Aller vers la balle
         return self.goTo(self.ball.position)
 
+    def goToMi(self):
+        v = self.ball.position + self.goal[0]
+        v.product(0.5)
+        return self.goTo(v)
+
     def distanceFromBall(self, player = None, ball = None):
                                             # Distance du joueur a la balle
         if not player:

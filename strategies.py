@@ -11,8 +11,13 @@ def runnerMove(d):  # Course directe vers la balle
     a = d.maximizeMove(a)
     return a
 def defendMove(d):  # Placement defensif
+    a = d.goToMi()
+    a = d.maximizeMove(a)
+    return a
+def keeperMove(d):  # Rester dans les cages
     a = d.goToHo()
     a = d.maximizeMove(a)
+    return a
 def attackMove(d):  # Offensive directe vers les cages ennemies
     a = d.goToGo()
     a = d.maximizeMove(a)
@@ -35,24 +40,15 @@ def directShot(d):  # Tir direct vers le but ennemi
     return t
 
 class GlobalStrategy(SoccerStrategy):
-    moves = []
-    shots = [staticShot]
     def __init__(self, name = None, moves = None, shots = None):
         if not name:
             self.name = "GlobalStrategy"
         else:
             self.name = name
-        self.moves+= moves
-        self.shots+= shots
-    def addMove(self, move):
-        self.moves.append(move)
-    def addShot(self, shot):
-        self.shots.append(shot)
+        self.moves = moves
+        self.shots = shots
     def move(self, d):    # Choisir le deplacement optimal
-        if d.isOnBall():
-            return self.moves[0](d)
-        else:
-            return self.moves[1](d)
+        return self.moves[0](d)
     def shot(self, d):    # Choisir l'action ideale
         if d.isOnBall():
             return self.shots[1](d)
@@ -151,6 +147,11 @@ class OverpoweredPlayer(SoccerPlayer):
 
 ##################################################
 
-runner = GlobalStrategy("Runner", [attackMove, runnerMove], [directShot])
-interc = GlobalStrategy("Incerceptor", [runnerMove, intercMove], [directShot])
-defend = GlobalStrategy("Defender", [defendMove, defendMove], [directShot])
+
+class DefendStrategy(GlobalStrategy):
+    def __init__(self, name = None):
+        super(DefendStrategy, self).__init__("DefendStrategy", [defendMove, defendMove], [staticShot, directShot])
+
+class RunnerStrategy(GlobalStrategy):
+    def __init__(self, name = None):
+        super(RunnerStrategy, self).__init__("RunnerStrategy", [runnerMove, runnerMove], [staticShot, directShot])
