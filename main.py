@@ -1,22 +1,50 @@
+# -*- coding: utf8 -*-
+
 from soccersimulator import pyglet
+from soccersimulator import PygletObserver, LogObserver, PygletReplay
 from soccersimulator import SoccerBattle, SoccerPlayer, SoccerTeam
-from soccersimulator import PygletObserver, ConsoleListener, LogListener
+from soccersimulator import InteractStrategy
 from strategies import *
 
-team1=SoccerTeam("Aventurier Errant")
-team1.add_player(SoccerPlayer("t1j1", runner))
+import glob
+import pickle
 
-team2=SoccerTeam("Aventuriers Errants Coureurs")
-team2.add_player(SoccerPlayer("t2j1", runner))
-team2.add_player(SoccerPlayer("t2j2", runner))
+CFG_1=dict({"ballBrakeConstant":0.08, "ballBrakeSquare":0.01})
+CFG_2=dict({"ballBrakeConstant":0.05, "ballBrakeSquare":0.0025})
+CFG_3=dict({"ballBrakeConstant":0.04, "ballBrakeSquare":0.004})
 
-team4=SoccerTeam("Aventuriers Errants Intercepteurs")
-team4.add_player(SoccerPlayer("t4j1", interc))
-team4.add_player(SoccerPlayer("t4j2", interc))
+team2=SoccerTeam("Coureur")
+team2.add_player(SoccerPlayer("t2j1", RunnerStrategy("Runner")))
+team2.add_player(SoccerPlayer("t2j2", RunnerStrategy("Runner")))
+team2.add_player(SoccerPlayer("t2j3", RunnerStrategy("Runner")))
+team2.add_player(SoccerPlayer("t2j4", RunnerStrategy("Runner")))
 
-teams = [team1, team2, team4]
+team4=SoccerTeam("Interceptuer")
+team4.add_player(SoccerPlayer("t4j1", IntercStrategy("Defend")))
+team4.add_player(SoccerPlayer("t4j2", IntercStrategy("Defend")))
+team4.add_player(SoccerPlayer("t4j3", IntercStrategy("Defend")))
+team4.add_player(SoccerPlayer("t4j4", IntercStrategy("Defend")))
 
-battle = SoccerBattle(teams[2], teams[1])
+#battle = SoccerBattle(teams[2], teams[1])
+#obs = PygletObserver()
+#obs.set_soccer_battle(battle)
+#pyglet.app.run()
+
+#list_key_player1=['a','z']
+#list_key_player2=['q','s','d']
+#list_strat_player1=[defend, runner]
+#list_strat_player2=[runner, interc, defend]
+
+# arguemnts :  liste des touches, liste des strategies, nom du fichier, tout sauvegarder ou non, concatener dans un meme fichier a la suite ou non
+#inter_strat_player1=InteractStrategy(list_key_player1,list_strat_player1,"test_interact.pkl")
+#inter_strat_player2=InteractStrategy(list_key_player2,list_strat_player2,"test_interact.pkl",True)
+#team3 = SoccerTeam("Interactive")
+#team3.add_player(SoccerPlayer("t3j1",inter_strat_player1))
+#team3.add_player(SoccerPlayer("t3j2",inter_strat_player2))
+#team3.add_player(SoccerPlayer("t3j3",inter_strat_player2))
+#team3.add_player(SoccerPlayer("t3j4",inter_strat_player2))
+
+battle = SoccerBattle(team2, team4)
 obs = PygletObserver()
 obs.set_soccer_battle(battle)
 pyglet.app.run()
