@@ -17,6 +17,21 @@ team4.add_player(SoccerPlayer("t4j2", RunnerStrategy("Runner")))
 team4.add_player(SoccerPlayer("t4j3", DefendStrategy("Defend")))
 team4.add_player(SoccerPlayer("t4j4", DefendStrategy("Defend")))
 
+## Overpowered ##
+oeam1 = SoccerTeam("Overpowered")
+oeam1.add_player(OverpoweredPlayer("t1j1"))
+
+oeam2 = SoccerTeam("Overpowered")
+oeam2.add_player(OverpoweredPlayer("t2j1"))
+oeam2.add_player(OverpoweredPlayer("t2j2"))
+
+oeam4 = SoccerTeam("Overpowered")
+oeam4.add_player(OverpoweredPlayer("t4j1"))
+oeam4.add_player(OverpoweredPlayer("t4j2"))
+oeam4.add_player(OverpoweredPlayer("t4j3"))
+oeam4.add_player(OverpoweredPlayer("t4j4"))
+#################
+
 team_tree = SoccerTeam("Team Tree")
 treeia=TreeIA(gen_feature_simple,dict({"Random":RandomStrategy(),"Fonceur":FonceurStrategy()}))
 
@@ -28,4 +43,5 @@ TreeST=TreeStrategy("tree1",treeia)
 team_tree.add_player(SoccerPlayer("Tree 1",TreeST))
 team_tree.add_player(SoccerPlayer("Tree 2",TreeST))
 
+oteam = [oeam1, oeam2, oeam4]
 teams = [team1, team2, team4]

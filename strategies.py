@@ -71,16 +71,16 @@ class OverpoweredStrategy(GlobalStrategy):  # Strategie speciale
     @property
     def pos(self):
     	return self._pos
-    def __init__(self, name = None, moves = None, shots = None):
+    def __init__(self, name = None):
         if not name:
-            self.name = "OverpoweredStrategy"
+            self.name = "Overpowered"
         else:
             self.name = name
-        self.moves+= moves
-        self.shots+= shots
+        self.moves = [runnerMove, runnerMove]
+        self.shots = [directShot, directShot]
         self._pos = Vector2D()
     def compute_strategy(self, state, player, teamid):
-    	self._pos = state.ball.position+state.ball.speed
+    	self._pos = state.ball.position+state.ball.speed      # Cible de la prochaine teleportation
         d = Tools(player, state, teamid)
         return SoccerAction(self.move(d), self.shot(d))
 
@@ -94,7 +94,7 @@ class OverpoweredPlayer(SoccerPlayer):
 		self._num_before_shoot=0
 		self.id =-1
 		self._speed_v=Vector2D()
-		self._strategy=OverpoweredStrategy("Overpowered", [runnerMove, runnerMove], [directShot])
+		self._strategy=OverpoweredStrategy()
 		self.state=None
 
 	@property
@@ -122,7 +122,7 @@ class OverpoweredPlayer(SoccerPlayer):
 		pass                              # Override du setter (vitesse fixe)
 
 	def copy(self,safe=False):            # Redefintion de la copie
-		player=OverpoweredPlayer(self._name,self._strategy)
+		player=OverpoweredPlayer(self._name)
 		player.position=self.position
 		player.angle=self.angle
 		player.speed=self.speed
@@ -131,19 +131,6 @@ class OverpoweredPlayer(SoccerPlayer):
 		if safe:
 			player._strategy=strategies.SoccerStrategy(self.strategy.name)
 		return player
-
-	def dec_num_before_shoot(self):
-		self._num_before_shoot=0
-
-	def set_position(self,x,y,angle):
-		self.angle=float(angle)
-
-	def init_num_before_shoot(self, v):
-		self._num_before_shoot=0          # Override de la limite de tir (inactif ?)
-
-	def get_num_before_shoot(self):
-		self._num_before_shoot=0          # Override de la limite de tir (inactif ?)
-		return 0
 
 ##################################################
 
