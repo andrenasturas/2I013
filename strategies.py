@@ -35,7 +35,7 @@ def directShot(d):  # Tir direct vers le but ennemi
     return t
 
 class GlobalStrategy(SoccerStrategy):
-    moves = [attackMove]
+    moves = []
     shots = [staticShot]
     def __init__(self, name = None, moves = None, shots = None):
         if not name:
@@ -68,5 +68,89 @@ class GlobalStrategy(SoccerStrategy):
         d = Tools(player, state, teamid)
         return SoccerAction(self.move(d), self.shot(d))
 
-runner = GlobalStrategy("Runner", [runnerMove], [directShot])
-interc = GlobalStrategy("Incerceptor", [intercMove], [directShot])
+################# Joueur Special #################
+## Implementation d'un pouvoir de teleportation ##
+
+class OverpoweredStrategy(GlobalStrategy):  # Strategie speciale
+    @property
+    def pos(self):
+    	return self._pos
+    def __init__(self, name = None, moves = None, shots = None):
+        if not name:
+            self.name = "OverpoweredStrategy"
+        else:
+            self.name = name
+        self.moves+= moves
+        self.shots+= shots
+        self._pos = Vector2D()
+    def compute_strategy(self, state, player, teamid):
+    	self._pos = state.ball.position+state.ball.speed
+        d = Tools(player, state, teamid)
+        return SoccerAction(self.move(d), self.shot(d))
+
+class OverpoweredPlayer(SoccerPlayer):
+	def __init__(self,name="Overpowered"):
+		self._name=name
+		self.position=Vector2D(75, 45)
+		if 1 == 1:
+			self._angle=0.
+		self._speed=4.5
+		self._num_before_shoot=0
+		self.id =-1
+		self._speed_v=Vector2D()
+		self._strategy=OverpoweredStrategy("Overpowered", [runnerMove, runnerMove], [directShot])
+		self.state=None
+
+	@property
+	def angle(self):
+		self._num_before_shoot=0          # Override de la limite de tir (inactif ?)
+		self.position=self._strategy.pos  # Teleportation
+		return self._angle
+	@angle.setter
+	def angle(self,a):
+		pass                              # Override du setter (angle fixe)
+
+	@property
+	def speed(self):
+		return self._speed
+	@speed.setter
+	def speed(self,s):
+		pass                              # Override du setter (vitesse fixe)
+
+	@property
+	def speed_v(self):
+		self._speed_v=Vector2D()
+		return self._speed_v.copy()
+	@speed_v.setter
+	def speed_v(self,v):
+		pass                              # Override du setter (vitesse fixe)
+
+	def copy(self,safe=False):            # Redefintion de la copie
+		player=OverpoweredPlayer(self._name,self._strategy)
+		player.position=self.position
+		player.angle=self.angle
+		player.speed=self.speed
+		player._num_before_shoot=0
+		player.id=self.id
+		if safe:
+			player._strategy=strategies.SoccerStrategy(self.strategy.name)
+		return player
+
+	def dec_num_before_shoot(self):
+		self._num_before_shoot=0
+
+	def set_position(self,x,y,angle):
+		self.angle=float(angle)
+
+	def init_num_before_shoot(self, v):
+		self._num_before_shoot=0          # Override de la limite de tir (inactif ?)
+
+	def get_num_before_shoot(self):
+		self._num_before_shoot=0          # Override de la limite de tir (inactif ?)
+		return 0
+
+##################################################
+
+runner = GlobalStrategy("Runner", [attackMove, runnerMove], [directShot])
+interc = GlobalStrategy("Incerceptor", [runnerMove, intercMove], [directShot])
+defend = GlobalStrategy("Defender", [defendMove, defendMove], [directShot])
