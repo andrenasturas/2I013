@@ -43,5 +43,5 @@ TreeST=TreeStrategy("tree1",treeia)
 team_tree.add_player(SoccerPlayer("Tree 1",TreeST))
 team_tree.add_player(SoccerPlayer("Tree 2",TreeST))
 
-oteam = [oeam1, oeam2, oeam4]
+oeams = [oeam1, oeam2, oeam4]
 teams = [team1, team2, team4]
